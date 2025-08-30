@@ -7,13 +7,14 @@ function p(a){
 
 
 
-class linkedList{
+class doublelinkedList{
 
     constructor(value){
 
         this.head = {
             value : value,
-            next : null
+            next : null,
+            prev : null
         }
 
         this.tail = this.head;
@@ -26,7 +27,8 @@ class linkedList{
 
         this.tail.next = {
             value : value,
-            next : null
+            next : null,
+            prev : this.tail
         }
 
         this.tail = this.tail.next;
@@ -39,7 +41,8 @@ class linkedList{
 
         let node = {
             value:value,
-            next:this.head
+            next:this.head,
+            prev:null
         }
 
 
@@ -65,6 +68,7 @@ class linkedList{
         let node = {
             value : value,
             next:currentNode.next,
+            prev : currentNode
         }
 
 
@@ -92,6 +96,7 @@ class linkedList{
 
 
         currentNode.next = currentNode.next.next;
+        currentNode.next.prev = currentNode;
 
 
         this.lenght--;
@@ -121,9 +126,28 @@ class linkedList{
 
 
     }
+
+
+    printAllbackward(){
+
+        let CurrentNode = this.tail
+
+
+        while (CurrentNode){
+
+            console.log(CurrentNode.value);
+
+            CurrentNode = CurrentNode.prev;
+
+
+        }
+
+
+
+    }
 }
 
-let robin = new linkedList(1);
+let robin = new doublelinkedList(1);
 
 robin.append('aa')
 robin.append('bb')
@@ -145,3 +169,7 @@ robin.remove(4);
 
 robin.printAll();
 p(robin)
+
+p('---------------------------')
+
+robin.printAllbackward();
