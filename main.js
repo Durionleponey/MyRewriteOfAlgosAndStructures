@@ -1,112 +1,147 @@
 
 
+function p(a){
 
-class array{
-    constructor(){
+    console.log(a);
+}
 
-        this.length = 0;
-        this.data = {};
+
+
+class linkedList{
+
+    constructor(value){
+
+        this.head = {
+            value : value,
+            next : null
+        }
+
+        this.tail = this.head;
+
+        this.lenght = 1;
     }
+
 
     append(value){
 
-        this.data[this.length] = value;
-        this.length++;
+        this.tail.next = {
+            value : value,
+            next : null
+        }
+
+        this.tail = this.tail.next;
+
+        this.lenght++;
 
     }
 
-    push(value){
+    shift(value){
 
-        for (let i = this.length-1; i >= 0; i--){
-
-
-            this.data[i+1] = this.data[i];
-
+        let node = {
+            value:value,
+            next:this.head
         }
 
-        this.data[0] = value;
 
-        this.length++;
+        this.head = node;
+
+        this.lenght++;
 
 
     }
 
     insert(value,index){
 
-        for (let i = this.length-1; i >= index; i--){
+        let currentNode = this.head;
 
 
-            this.data[i+1] = this.data[i];
+        for (let i = 0; i != index;i++){
+
+            currentNode = currentNode.next;
 
         }
 
-        this.data[index] = value;
 
-        this.length++;
+        let node = {
+            value : value,
+            next:currentNode.next,
+        }
+
+
+        currentNode.next = node;
+
+
+        this.lenght++;
+
 
 
     }
+
+
 
     remove(index){
 
-        for (let i = index; i < this.length-1; i++){
+        let currentNode = this.head;
 
 
-            this.data[i] = this.data[i+1];
+        for (let i = 0; i != index;i++){
+
+            currentNode = currentNode.next;
 
         }
 
-        delete this.data[this.length - 1];
+
+        currentNode.next = currentNode.next.next;
 
 
+        this.lenght--;
 
-        this.length--;
 
 
     }
 
-    printByIndex(index){
 
-        console.log(this.data[index]);
-    }
+
 
 
     printAll(){
 
-        for (let i =0; i< this.length; i++){
+        let CurrentNode = this.head
 
-            console.log(i + ': [' + this.data[i] + ']');
+
+        while (CurrentNode){
+
+            console.log(CurrentNode.value);
+
+            CurrentNode = CurrentNode.next;
+
+
         }
+
+
+
     }
-
-
 }
 
+let robin = new linkedList(1);
+
+robin.append('aa')
+robin.append('bb')
+robin.append('bb')
+robin.append('bb')
+robin.append('cc')
 
 
-robin = new array();
+robin.shift('💀💀💀')
 
-robin.append("pommes")
-robin.append("poires")
-
-
-//robin.printAll();
-
-
-robin.push("lol");
-
-robin.printAll();
-
-
-
-console.log("inserct abricot at 2");
-robin.insert("abricot",2)
-robin.printAll();
-
-console.log("remove avvricot");
-robin.remove(2)
+robin.insert('🤞🤞🤞🤞',3)
+robin.insert('🤞🤞',3)
 
 robin.printAll();
 
 
-console.log(robin);
+p("fsdffzeafzafzef")
+robin.remove(4);
+
+robin.printAll();
+p(robin)
