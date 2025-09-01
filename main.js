@@ -1,175 +1,82 @@
 
-
 function p(a){
 
     console.log(a);
 }
+class Node {
+    constructor(value) {
 
-
-
-class doublelinkedList{
-
-    constructor(value){
-
-        this.head = {
-            value : value,
-            next : null,
-            prev : null
-        }
-
-        this.tail = this.head;
-
-        this.lenght = 1;
-    }
-
-
-    append(value){
-
-        this.tail.next = {
-            value : value,
-            next : null,
-            prev : this.tail
-        }
-
-        this.tail = this.tail.next;
-
-        this.lenght++;
+        this.value=value
+        this.next=null
 
     }
 
-    shift(value){
-
-        let node = {
-            value:value,
-            next:this.head,
-            prev:null
-        }
-
-
-        this.head = node;
-
-        this.lenght++;
-
-
-    }
-
-    insert(value,index){
-
-        let currentNode = this.head;
-
-
-        for (let i = 0; i != index;i++){
-
-            currentNode = currentNode.next;
-
-        }
-
-
-        let node = {
-            value : value,
-            next:currentNode.next,
-            prev : currentNode
-        }
-
-
-        currentNode.next = node;
-
-
-        this.lenght++;
-
-
-
-    }
-
-
-
-    remove(index){
-
-        let currentNode = this.head;
-
-
-        for (let i = 0; i != index;i++){
-
-            currentNode = currentNode.next;
-
-        }
-
-
-        currentNode.next = currentNode.next.next;
-        currentNode.next.prev = currentNode;
-
-
-        this.lenght--;
-
-
-
-    }
-
-
-
-
-
-    printAll(){
-
-        let CurrentNode = this.head
-
-
-        while (CurrentNode){
-
-            console.log(CurrentNode.value);
-
-            CurrentNode = CurrentNode.next;
-
-
-        }
-
-
-
-    }
-
-
-    printAllbackward(){
-
-        let CurrentNode = this.tail
-
-
-        while (CurrentNode){
-
-            console.log(CurrentNode.value);
-
-            CurrentNode = CurrentNode.prev;
-
-
-        }
-
-
-
-    }
 }
 
-let robin = new doublelinkedList(1);
 
-robin.append('aa')
-robin.append('bb')
-robin.append('bb')
-robin.append('bb')
-robin.append('cc')
+class Stack {
+    constructor() {
+        this.top = null;
+        this.bottom = null;
+        this.length = 0;
+    }
+
+    peek() {//display the top element
+
+        console.log(this.top);
+    }
+
+    push(value) {
+
+        let newNode = new Node(value);
+
+        if (!this.length){
+            this.top = newNode;
+            this.bottom = newNode;
+        }else{
+
+            newNode.next = this.top
+            this.top = newNode;
+        }
+        this.length++
+
+    }
+
+    pop() {
+
+        if (!this.length){console.log('😭');}
+
+        this.length--
+
+        if (!this.length){
+            this.top = null;
+            this.bottom = null;
+
+        }
+
+        this.top = this.top.next;
 
 
-robin.shift('💀💀💀')
-
-robin.insert('🤞🤞🤞🤞',3)
-robin.insert('🤞🤞',3)
-
-robin.printAll();
 
 
-p("fsdffzeafzafzef")
-robin.remove(4);
 
-robin.printAll();
+    }
+
+    // isEmpty
+}
+
+
+let robin = new Stack();
+
+robin.peek();
+
+robin.push("aaaaa");
+
+robin.peek();
+robin.push("bbbbb");
+robin.push("ccccc")
+robin.push("ddddd")
+
+robin.pop();
+
 p(robin)
-
-p('---------------------------')
-
-robin.printAllbackward();
