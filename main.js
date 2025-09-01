@@ -4,42 +4,92 @@ function p(a){
     console.log(a);
 }
 
+class Node{
 
+    constructor(value) {
 
-
-class Stack{
-
-    constructor(){
-
-        this.data = [];
-
+        this.value = value;
+        this.next = null;
     }
 
-    peek(){
-
-        console.log(this.data[this.data.length-1])
-    }
-
-    push(value){
-        this.data.push(value);
-    }
-
-    pop(){
-        this.data.pop();
-    }
 }
 
-let robin = new Stack();
+
+
+class Queue {
+    constructor(){
+        this.first = null;
+        this.last = null;
+        this.length = 0;
+    }
+
+    peek() {
+
+        console.log(this.first);
+    }
+
+    enqueue(value){
+
+        const newNode = new Node(value)
+
+
+        if(!this.length){
+
+            this.first = newNode;
+            this.last = newNode;
+
+        }else{
+
+            this.last.next = newNode;
+            this.last = newNode;
+        }
+
+        this.length++;
+
+    }
+
+    dequeue(){
+
+        this.length--;
+
+        if(!this.length){
+
+            this.first = null;
+            this.last = null;
+
+        }else{
+
+
+            this.first = this.first.next;
+        }
+
+
+
+
+
+    }
+
+}
+
+
+let robin = new Queue();
 
 robin.peek();
 
-robin.push("aaaaa");
+robin.enqueue("aaaaa");
 
 robin.peek();
-robin.push("bbbbb");
-robin.push("ccccc")
-robin.push("ddddd")
+robin.enqueue("bbbbb");
+robin.peek();
+robin.enqueue("ccccc")
+robin.peek();
+robin.enqueue("ddddd")
 
-robin.pop();robin.pop();
+
+p(robin)
+
+robin.dequeue()
+robin.dequeue()
+
 
 p(robin)
