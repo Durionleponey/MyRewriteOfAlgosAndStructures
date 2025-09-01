@@ -4,92 +4,83 @@ function p(a){
     console.log(a);
 }
 
-class Node{
 
-    constructor(value) {
+//creation queue using stack
 
-        this.value = value;
-        this.next = null;
+class Stack{
+
+    constructor(){
+
+        this.data = [];
+
     }
 
+    peek(){
+
+        console.log(this.data[this.data.length-1])
+    }
+
+    push(value){
+        return this.data.push(value);
+    }
+
+    pop(){
+        return this.data.pop();
+    }
 }
 
 
 
-class Queue {
+class QueueUsingStack{
     constructor(){
-        this.first = null;
-        this.last = null;
-        this.length = 0;
-    }
 
-    peek() {
-
-        console.log(this.first);
+        this.stackIn = new Stack();
+        this.stackOut = new Stack();
     }
 
     enqueue(value){
-
-        const newNode = new Node(value)
-
-
-        if(!this.length){
-
-            this.first = newNode;
-            this.last = newNode;
-
-        }else{
-
-            this.last.next = newNode;
-            this.last = newNode;
-        }
-
-        this.length++;
+        this.stackIn.push(value);
 
     }
-
     dequeue(){
 
-        this.length--;
 
-        if(!this.length){
+        if (this.stackOut.data.length === 0){
 
-            this.first = null;
-            this.last = null;
+            while (this.stackIn.data.length > 0){
 
-        }else{
-
-
-            this.first = this.first.next;
+                this.stackOut.push(this.stackIn.pop());
+            }
         }
 
-
-
-
-
+        this.stackOut.pop();
     }
-
 }
 
 
-let robin = new Queue();
 
-robin.peek();
 
-robin.enqueue("aaaaa");
+let robin = new QueueUsingStack();
 
-robin.peek();
+
+robin.enqueue("pomme de terre");
+robin.enqueue("poires");
+robin.enqueue("arbre");
+robin.enqueue("aaaa");
 robin.enqueue("bbbbb");
-robin.peek();
-robin.enqueue("ccccc")
-robin.peek();
-robin.enqueue("ddddd")
 
 
-p(robin)
+p(robin);
 
-robin.dequeue()
-robin.dequeue()
+robin.dequeue();
+robin.dequeue();
+robin.dequeue();
+
+p(robin);
+robin.enqueue("😨");
+robin.enqueue("😅");
+
+robin.dequeue();
 
 
 p(robin)
