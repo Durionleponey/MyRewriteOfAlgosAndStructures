@@ -1,86 +1,133 @@
 
-function p(a){
-
-    console.log(a);
-}
 
 
-//creation queue using stack
 
-class Stack{
+class Node{
+    constructor(data){
+        this.data = data;
+        this.left=null
+        this.right=null
 
-    constructor(){
-
-        this.data = [];
-
-    }
-
-    peek(){
-
-        console.log(this.data[this.data.length-1])
-    }
-
-    push(value){
-        return this.data.push(value);
-    }
-
-    pop(){
-        return this.data.pop();
     }
 }
 
-
-
-class QueueUsingStack{
+class bst{
     constructor(){
-
-        this.stackIn = new Stack();
-        this.stackOut = new Stack();
+        this.root=null
     }
-
-    enqueue(value){
-        this.stackIn.push(value);
-
-    }
-    dequeue(){
+    add(value){
 
 
-        if (this.stackOut.data.length === 0){
-
-            while (this.stackIn.data.length > 0){
-
-                this.stackOut.push(this.stackIn.pop());
-            }
+        if (!this.root){
+            this.root = new Node(value);
+            return value;
         }
 
-        this.stackOut.pop();
+        let currentNode = this.root;
+
+        while(1){
+
+            if (currentNode.data>value){
+
+
+                if (!currentNode.left){
+                    currentNode.left = new Node(value);
+                    return value;
+                }
+
+                currentNode = currentNode.left;
+            }else{
+
+                if (!currentNode.right){
+                    currentNode.right = new Node(value);
+                    return value;
+                }
+
+                currentNode = currentNode.right;
+
+            }
+        }
+    }
+
+    remove(value){//not 100% opti and clean and with no edge case but still
+
+        let currentNode = this.root;
+
+        let currentNodeParent = null
+
+        let nodeExtermeLeftParent = null;
+
+        while(true){
+
+            if (currentNode.data === value){
+
+                //console.log("target is found");
+                let target = currentNode;
+
+                //find the closest number to the exterm left i guess
+
+                while(currentNode.left){
+
+                    nodeExtermeLeftParent = currentNode;
+                    currentNode = currentNode.left;
+
+                }
+
+                //change links between target and currentNode
+
+                try{
+                    nodeExtermeLeftParent.left = null;
+
+
+                }catch(e){}
+
+                currentNode.left = target.left;
+                currentNode.right = target.right;
+
+
+                if (currentNodeParent.left === target){
+                    currentNodeParent.left = null;
+                }
+
+                if (currentNodeParent.right === target){
+                    currentNodeParent.right = null;
+                }
+
+                return target;
+
+
+            }else{
+                //searching the target
+
+                currentNodeParent = currentNode;
+
+                if (currentNode.data > value){
+                    currentNode= currentNode.left;
+                }else{
+                    currentNode = currentNode.right;
+                }
+            }
+
+
+        }
     }
 }
 
+let robin =new bst();
 
+robin.add(5)
 
+robin.add(4)
 
-let robin = new QueueUsingStack();
+robin.add(3)
 
+robin.add(5.5)
 
-robin.enqueue("pomme de terre");
-robin.enqueue("poires");
-robin.enqueue("arbre");
-robin.enqueue("aaaa");
-robin.enqueue("bbbbb");
+robin.add(4.5)
 
-
-p(robin);
-
-robin.dequeue();
-robin.dequeue();
-robin.dequeue();
-
-p(robin);
-robin.enqueue("😨");
-robin.enqueue("😅");
-
-robin.dequeue();
-
-
-p(robin)
+robin.add(6)
+robin.add(9)
+console.log(JSON.stringify(robin, null, 2));
+console.log("REMOVING 3---------------------------------");
+robin.remove(3)
+console.log(JSON.stringify(robin, null, 2));
