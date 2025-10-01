@@ -1,46 +1,82 @@
-let list = [2,1321231244,114,5,4,48,5,65,11,13231];
-
-console.log("Avant tri :", list);
 
 
 
-function bubbleSort(list){
 
-    let c =0
+class BST{
+    constructor(value){
+        let newNode = {value:value,left:null,right:null}
 
-    while(true){
-        c++
+        this.root = newNode
+    }
 
+    add(value){
 
-        for (let i = 0; i < list.length; i++) {
+        let newNode = {value:value,left:null,right:null}
 
-            let temp = 0
+        let currentNode = this.root
 
+        while (true){
 
-            if (list[i] > list[i+1]){
+            if (value < currentNode.value){
 
-                temp = list[i];
-                list[i] = list[i+1];
-                list[i+1] = temp;
+                if (currentNode.left){
+                    currentNode = currentNode.left
+
+                }else{
+                    currentNode.left = newNode
+                    break
+
+                }
+            }else{
+                if (currentNode.right){
+                    currentNode = currentNode.right
+                }else{
+                    currentNode.right = newNode
+                    break
+                }
+
 
             }
 
 
         }
-
-        if (c> list.length){break}
-
-
-
     }
 
+    BFS(){
+        let currentNode = this.root
+        let queue = []//3,5,1,4
+        let list = []//
+        queue.push(currentNode)
 
+        while (queue.length > 0){
+            let temp = queue.shift()
+            list.push(temp.value)
 
+            if(temp.left){
+                queue.push(temp.left)
+            }
+            if(temp.right){
+                queue.push(temp.right)
+            }
+
+        }
+
+        return list
+
+    }
 }
 
 
-bubbleSort(list);
+let tree = new BST(9);
 
-console.log("après tri :", list);
+tree.add(4)
+tree.add(6)
+tree.add(20)
+tree.add(170)
+tree.add(15)
+tree.add(1)
 
+console.log(tree.BFS())
 
+console.log(tree)
+console.log(JSON.stringify(tree, null, 2));
