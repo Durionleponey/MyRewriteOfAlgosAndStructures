@@ -64,6 +64,11 @@ class BST{
         return list
 
     }
+
+
+    DFS(){
+        return DeepFirstSearch(this.root, [])
+    }
 }
 
 
@@ -76,7 +81,25 @@ tree.add(170)
 tree.add(15)
 tree.add(1)
 
-console.log(tree.BFS())
+//console.log(tree.BFS())
+
+console.log(tree.DFS())
+
+function DeepFirstSearch(root, list){
+
+    if(root.left){
+        DeepFirstSearch(root.left, list)
+    }
+
+    list.push(root.value)
+
+    if (root.right){
+        DeepFirstSearch(root.right, list)
+    }
+
+    return list
+}
 
 console.log(tree)
 console.log(JSON.stringify(tree, null, 2));
+
